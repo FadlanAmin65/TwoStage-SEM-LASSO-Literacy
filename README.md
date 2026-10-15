@@ -12,14 +12,14 @@ Make sure the following R packages are installed:
 - `lars`
 - `corrplot`
 
-## 📂 Repository Structure
+## 📂 Input Files
 - `Data.xlsx` → main dataset (variables X1–X12 and Y).
-- `Data Spatial.xlsx` → spatial weight matrix (Road Access Matrix).
+- `Weight Matrix.xlsx` → spatial weight matrix (sheet: `Road-NS`).
 
-## 🚀 Step-by-Step Instructions
+## 🚀 Instructions
 1. **Load Data**
-   - Import `Data.xlsx` for the study variables.
-   - Import `Data Spatial.xlsx` for the spatial matrix.
+   - Import `Data.xlsx` and scale variables (excluding identifiers).
+   - Define variable names (X1–X12).
 
 2. **Descriptive Statistics & Correlation**
    - Run `summary(datates)` for descriptive statistics.
@@ -31,13 +31,19 @@ Make sure the following R packages are installed:
    - Test heteroskedasticity with `bptest()`.
 
 4. **Spatial Effect Testing**
-   - Build queen adjacency matrix with `mat2listw()`.
+   - Load `Weight Matrix.xlsx` (sheet: `Road-NS`).
+   - Build adjacency matrix and listw object.
    - Run `moran.test()` and `lm.RStests()` to check spatial dependence.
 
 5. **Modeling**
    - **Baseline SEM**: `errorsarlm(Y ~ ., data = datates.scaled, listw = nb)`.
-   - **SEM-LASSO (Coordinate Descent)**: use `cv.glmnet()` to select variables, then fit SEM.
-   - **SEM-LARS**: use `lars()` to select variables, then fit SEM.
+   - **SEM-LASSO (Coordinate Descent)**:
+     - Transform variables with spatial filter.
+     - Run `cv.glmnet()` to select variables.
+     - Fit SEM-LASSO model with selected variables.
+   - **SEM-LARS**:
+     - Run `lars()` to select variables.
+     - Fit SEM-LARS model with selected variables.
 
 6. **Model Evaluation**
    - Compare AIC & BIC across models (`AIC()`, `BIC()`).
@@ -46,13 +52,9 @@ Make sure the following R packages are installed:
 
 ## 📊 Outputs
 - Selected variables (LASSO & LARS).
-- Model statistics (AIC, BIC).
-- Prediction accuracy (RMSE, MAE).
+- Model summaries (coefficients, significance).
+- Evaluation metrics: AIC, BIC, RMSE, MAE.
 - Correlation plots.
-
-## 📜 Dataset Notes
-- Both `Data.xlsx` and `Data Spatial.xlsx` are required to run the code.
-- If the dataset cannot be shared publicly (e.g., due to BPS licensing restrictions), please provide clear instructions on how readers can obtain it from the official source.
 
 -----------
 ## SEM-LASSO with Different Spatial Weight Matrices
@@ -72,7 +74,7 @@ Required R packages:
 ## 📂 Input Files
 - `Data.xlsx` → main dataset (variables X1–X12 and Y).
 - `Weight Matrix.xlsx` → spatial weight matrices with sheets:
-  - `Road-NS` → road network adjacency
+  - `Road-NS` → road access weight
   - `IDW` → inverse distance weighting
   - `Queen` → queen contiguity
 
@@ -107,9 +109,11 @@ Required R packages:
 - Comparative performance across Road, IDW, and Queen matrices.
 
 ## 📜 Notes
-- Ensure that `Data.xlsx` and `Weight Matrix.xlsx` are available in the specified directory.
-- If datasets cannot be shared publicly, provide instructions for obtaining them from the official source (e.g., BPS South Sulawesi).
-- The script is modular: each section (Road, IDW, Queen) can be run independently.
+The raw dataset used in this study originates from the official Badan Pusat Statistik (BPS) South Sulawesi. Due to licensing and access restrictions, the dataset cannot be redistributed directly through this repository. Interested readers may request access to the data from BPS or download it independently via the official portal:
+
+https://bps.go.id
+
+We provide full instructions in the README on how to replicate the analysis once the dataset has been obtained. All scripts, weight matrices, and methodological details are included in this repository to ensure transparency and reproducibility.
 
 ---
 

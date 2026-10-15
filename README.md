@@ -6,7 +6,8 @@ This repository contains R scripts and spatial weight matrices used in the paper
 ## 📂 Repository Structure
   - `Descriptive and Spatial Effect.R` → descriptive statistics, correlation, VIF, Moran’s I, LM tests  
   - `Syntax Modelling.R` → SEM baseline, SEM-LASSO (Coordinate Descent), SEM-LARS  
-  - `Syntax Sensitivity Checks.R` → SEM-LASSO with different spatial weight matrices (Road, IDW, Queen)  
+  - `Syntax Sensitivity Checks.R` → SEM-LASSO with different spatial weight matrices (Road, IDW, Queen)
+  - `Weight Matrix.xlsx` → spatial weight matrices 
 
 ---
 

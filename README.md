@@ -111,7 +111,7 @@ Required R packages:
 ## 📜 Notes
 The raw dataset used in this study originates from the official Badan Pusat Statistik (BPS) South Sulawesi. Due to licensing and access restrictions, the dataset cannot be redistributed directly through this repository. Interested readers may request access to the data from BPS or download it independently via the official portal:
 
-https://bps.go.id
+https://sulsel.bps.go.id
 
 We provide full instructions in the README on how to replicate the analysis once the dataset has been obtained. All scripts, weight matrices, and methodological details are included in this repository to ensure transparency and reproducibility.
 

@@ -47,12 +47,4 @@ Interested readers may request or download the dataset independently via the off
 
 ---
 
-## 📊 Outputs
-- Selected variables (LASSO & LARS).  
-- Model summaries (coefficients, significance).  
-- Evaluation metrics: AIC, BIC, RMSE, MAE.  
-- Correlation plots and diagnostic tests.  
-
----
-
 With this structure, each script is explicitly linked to the corresponding methodological stage in the paper, ensuring transparency and reproducibility.

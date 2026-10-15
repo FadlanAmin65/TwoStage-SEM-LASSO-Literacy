@@ -1,120 +1,60 @@
-## Spatial Regression on Literacy Rate in South Sulawesi with Least Absolute Shrinkage and Selection Operator using Coordinate Descent Algorithm
-This repository contains R code for modeling the **Spatial Error Model (SEM)** combined with **LASSO (Coordinate Descent)** and **LARS (Least Angle Regression)**. The analysis focuses on literacy data from South Sulawesi.
+# Two-Stage SEM-LASSO & SEM-LARS for Literacy Analysis
 
-## 📦 Packages
-Make sure the following R packages are installed:
-- `readxl`
-- `regclass`
-- `spdep`
-- `glmnet`
-- `spatialreg`
-- `lmtest`
-- `lars`
-- `corrplot`
+This repository contains R scripts and spatial weight matrices used in the paper  
+**"Spatial Regression on Literacy Rate in South Sulawesi with Least Absolute Shrinkage and Selection Operator using Coordinate Descent Algorithm"**.
 
-## 📂 Input Files
-- `Data.xlsx` → main dataset (variables X1–X12 and Y).
-- `Weight Matrix.xlsx` → spatial weight matrix (sheet: `Road-NS`).
-
-## 🚀 Instructions
-1. **Load Data**
-   - Import `Data.xlsx` and scale variables (excluding identifiers).
-   - Define variable names (X1–X12).
-
-2. **Descriptive Statistics & Correlation**
-   - Run `summary(datates)` for descriptive statistics.
-   - Use `corrplot` to visualize correlations among variables.
-
-3. **OLS & Diagnostics**
-   - Fit OLS model: `lm(Y ~ ., data = datates.scaled)`.
-   - Check multicollinearity with `VIF()`.
-   - Test heteroskedasticity with `bptest()`.
-
-4. **Spatial Effect Testing**
-   - Load `Weight Matrix.xlsx` (sheet: `Road-NS`).
-   - Build adjacency matrix and listw object.
-   - Run `moran.test()` and `lm.RStests()` to check spatial dependence.
-
-5. **Modeling**
-   - **Baseline SEM**: `errorsarlm(Y ~ ., data = datates.scaled, listw = nb)`.
-   - **SEM-LASSO (Coordinate Descent)**:
-     - Transform variables with spatial filter.
-     - Run `cv.glmnet()` to select variables.
-     - Fit SEM-LASSO model with selected variables.
-   - **SEM-LARS**:
-     - Run `lars()` to select variables.
-     - Fit SEM-LARS model with selected variables.
-
-6. **Model Evaluation**
-   - Compare AIC & BIC across models (`AIC()`, `BIC()`).
-   - Generate predictions with `predict()`.
-   - Evaluate accuracy using RMSE and MAE.
-
-## 📊 Outputs
-- Selected variables (LASSO & LARS).
-- Model summaries (coefficients, significance).
-- Evaluation metrics: AIC, BIC, RMSE, MAE.
-- Correlation plots.
-
------------
-## SEM-LASSO with Different Spatial Weight Matrices
-
-This script demonstrates the application of **Spatial Error Model (SEM)** combined with **LASSO regression** under three different spatial weighting schemes: **Road Access Weight**, **Inverse Distance Weighting (IDW)**, and **Queen contiguity**.
-
-## 📦 Dependencies
-Required R packages:
-- `readxl`
-- `regclass`
-- `spdep`
-- `glmnet`
-- `spatialreg`
-- `lmtest`
-- `lars`
-
-## 📂 Input Files
-- `Data.xlsx` → main dataset (variables X1–X12 and Y).
-- `Weight Matrix.xlsx` → spatial weight matrices with sheets:
-  - `Road-NS` → road access weight
-  - `IDW` → inverse distance weighting
-  - `Queen` → queen contiguity
-
-## 🚀 Instructions
-1. **Load Data**
-   - Import `Data.xlsx` and scale variables (excluding identifiers).
-   - Define variable names (X1–X12).
-
-2. **Road Network SEM-LASSO**
-   - Load `Weight Matrix.xlsx` (sheet: `Road-NS`).
-   - Build adjacency matrix and listw object.
-   - Fit baseline SEM (`errorsarlm`).
-   - Transform variables with spatial filter.
-   - Run LASSO (`cv.glmnet`) to select variables.
-   - Fit SEM-LASSO model with selected variables.
-   - Evaluate using AIC, BIC, RMSE, MAE.
-
-3. **IDW SEM-LASSO**
-   - Load `Weight Matrix.xlsx` (sheet: `IDW`).
-   - Repeat the same modeling steps as above.
-   - Compare selected variables and evaluation metrics.
-
-4. **Queen SEM-LASSO**
-   - Load `Weight Matrix.xlsx` (sheet: `Queen`).
-   - Repeat the same modeling steps.
-   - Compare results with Road and IDW weighting schemes.
-
-## 📊 Outputs
-- Selected variables for each weighting scheme.
-- Model summaries (coefficients, significance).
-- Evaluation metrics: AIC, BIC, RMSE, MAE.
-- Comparative performance across Road, IDW, and Queen matrices.
-
-## 📜 Notes
-The raw dataset used in this study originates from the official Badan Pusat Statistik (BPS) South Sulawesi. Due to licensing and access restrictions, the dataset cannot be redistributed directly through this repository. Interested readers may request access to the data from BPS or download it independently via the official portal:
-
-https://sulsel.bps.go.id
-
-We provide full instructions in the README on how to replicate the analysis once the dataset has been obtained. All scripts, weight matrices, and methodological details are included in this repository to ensure transparency and reproducibility.
+## 📂 Repository Structure
+- `weights/` → spatial weight matrices (`Weight Matrix.xlsx`, sheets: Road-NS, IDW, Queen)  
+- `scripts/` → R scripts for each stage of analysis  
+  - `Descriptive and Spatial Effect.R` → descriptive statistics, correlation, VIF, Moran’s I, LM tests  
+  - `Syntax Modelling.R` → SEM baseline, SEM-LASSO (Coordinate Descent), SEM-LARS  
+  - `Syntax Sensitivity Checks.R` → SEM-LASSO with different spatial weight matrices (Road, IDW, Queen)  
+- `results/` → model outputs (AIC, BIC, RMSE, MAE)
 
 ---
 
-This README section explains the **purpose, inputs, execution order, and outputs** of the script, making it reproducible and easy to follow.
+## 🚀 Workflow Mapping to Paper
+
+### Stage 1: Data Exploration & Diagnostics
+**Paper Section:** *Descriptive statistics, correlation, multicollinearity, spatial effect tests*  
+**Script:** `Descriptive and Spatial Effect.R`  
+- Runs `summary()` for descriptive statistics.  
+- Generates correlation heatmap (`corrplot`).  
+- Tests multicollinearity with `VIF()`.  
+- Tests heteroskedasticity with `bptest()`.  
+- Moran’s I and LM tests for spatial autocorrelation.  
+
+### Stage 2: Baseline & Penalized Models
+**Paper Section:** *SEM baseline, SEM-LASSO (Coordinate Descent), SEM-LARS comparison*  
+**Script:** `Syntax Modelling.R`  
+- Fits baseline SEM (`errorsarlm`).  
+- Applies SEM-LASSO with `cv.glmnet()` (Coordinate Descent).  
+- Applies SEM-LARS with `lars()`.  
+- Compares models using AIC, BIC, RMSE, MAE.  
+
+### Stage 3: Alternative Spatial Weight Matrices
+**Paper Section:** *Robustness check with Road, IDW, Queen matrices*  
+**Script:** `Syntax Sensitivity Checks.R`  
+- Loads different weight matrices from `Weight Matrix.xlsx`.  
+- Fits SEM-LASSO for each matrix.  
+- Compares variable selection and evaluation metrics across weighting schemes.  
+
+---
+
+## 📜 Dataset Availability
+The raw dataset originates from **Badan Pusat Statistik (BPS) South Sulawesi**.  
+Due to licensing restrictions, the dataset cannot be redistributed in this repository.  
+Interested readers may request or download the dataset independently via the official portal:  
+👉 [https://sulsel.bps.go.id](https://sulsel.bps.go.id)
+
+---
+
+## 📊 Outputs
+- Selected variables (LASSO & LARS).  
+- Model summaries (coefficients, significance).  
+- Evaluation metrics: AIC, BIC, RMSE, MAE.  
+- Correlation plots and diagnostic tests.  
+
+---
+
+With this structure, each script is explicitly linked to the corresponding methodological stage in the paper, ensuring transparency and reproducibility.

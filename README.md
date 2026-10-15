@@ -4,12 +4,9 @@ This repository contains R scripts and spatial weight matrices used in the paper
 **"Spatial Regression on Literacy Rate in South Sulawesi with Least Absolute Shrinkage and Selection Operator using Coordinate Descent Algorithm"**.
 
 ## 📂 Repository Structure
-- `weights/` → spatial weight matrices (`Weight Matrix.xlsx`, sheets: Road-NS, IDW, Queen)  
-- `scripts/` → R scripts for each stage of analysis  
   - `Descriptive and Spatial Effect.R` → descriptive statistics, correlation, VIF, Moran’s I, LM tests  
   - `Syntax Modelling.R` → SEM baseline, SEM-LASSO (Coordinate Descent), SEM-LARS  
   - `Syntax Sensitivity Checks.R` → SEM-LASSO with different spatial weight matrices (Road, IDW, Queen)  
-- `results/` → model outputs (AIC, BIC, RMSE, MAE)
 
 ---
 

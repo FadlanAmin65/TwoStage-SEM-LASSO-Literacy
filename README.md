@@ -10,7 +10,7 @@ This repository contains R scripts and spatial weight matrices used in the paper
 
 ---
 
-## 🚀 Workflow Mapping to Paper
+## 🚀 Workflow
 
 ### Stage 1: Data Exploration & Diagnostics
 **Paper Section:** *Descriptive statistics, correlation, multicollinearity, spatial effect tests*  

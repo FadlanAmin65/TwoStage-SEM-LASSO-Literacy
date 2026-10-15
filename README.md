@@ -1,4 +1,4 @@
-# Spatial Regression on Literacy Rate in South Sulawesi with Least Absolute Shrinkage and Selection Operator using Coordinate Descent Algorithm
+## Spatial Regression on Literacy Rate in South Sulawesi with Least Absolute Shrinkage and Selection Operator using Coordinate Descent Algorithm
 This repository contains R code for modeling the **Spatial Error Model (SEM)** combined with **LASSO (Coordinate Descent)** and **LARS (Least Angle Regression)**. The analysis focuses on literacy data from South Sulawesi.
 
 ## 📦 Packages
@@ -55,7 +55,7 @@ Make sure the following R packages are installed:
 - If the dataset cannot be shared publicly (e.g., due to BPS licensing restrictions), please provide clear instructions on how readers can obtain it from the official source.
 
 -----------
-# SEM-LASSO with Different Spatial Weight Matrices
+## SEM-LASSO with Different Spatial Weight Matrices
 
 This script demonstrates the application of **Spatial Error Model (SEM)** combined with **LASSO regression** under three different spatial weighting schemes: **Road Access Weight**, **Inverse Distance Weighting (IDW)**, and **Queen contiguity**.
 

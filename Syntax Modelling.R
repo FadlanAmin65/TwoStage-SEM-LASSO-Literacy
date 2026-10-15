@@ -31,7 +31,7 @@ bptest(ols_tes)
 
 ### 5 Spatial Effect
 
-mtqueen <- read_excel("D:/Tesis/Data Spatial.xlsx", sheet = "Sheet2_Std (3)", range = "B3:Y27")
+mtqueen <- read_excel("D:/S2/Tesis/Artikel/File/Weight Matrix.xlsx", sheet = "Road-NS", range = "B3:Y27")
 mtqueen <- as.matrix(mtqueen)
 mtqueen
 
